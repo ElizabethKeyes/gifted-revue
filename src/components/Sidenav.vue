@@ -11,13 +11,14 @@
       </div>
     </form>
     <hr>
-    <form>
+    <form @submit.prevent="searchGiphy()">
       <label for="search">Search GIFs</label>
       <div class="d-flex">
-        <input type="text" class="form-control inline-input">
+        <input type="text" class="form-control inline-input" v-model="editable.query">
         <button class="btn btn-info inline-button"><i class="mdi mdi-magnify"></i></button>
       </div>
     </form>
+    <!-- TODO add in a template for the giphy gifs -->
   </div>
 </template>
 
@@ -43,6 +44,19 @@ export default {
           form.reset()
           const giftData = editable._rawValue
           await giftsService.addGift(giftData)
+        } catch (error) {
+          logger.log(error.message)
+          Pop.error(error)
+        }
+      },
+
+      async searchGiphy() {
+        try {
+          const form = window.event.target
+          form.reset()
+          const query = editable._rawValue.query
+          console.log(query);
+          await giftsService.searchGiphy(query)
         } catch (error) {
           logger.log(error.message)
           Pop.error(error)

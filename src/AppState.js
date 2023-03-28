@@ -8,5 +8,7 @@ export const AppState = reactive({
 
   /** @type {import('./models/Gift.js').Gift[]} */
 
-  gifts: []
+  gifts: [],
+
+  returnedGifts: []
 })

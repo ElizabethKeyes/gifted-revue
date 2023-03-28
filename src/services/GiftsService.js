@@ -1,6 +1,6 @@
 import { AppState } from "../AppState.js"
 import { Gift } from "../models/Gift.js"
-import { sandboxGiftsApi } from "./AxiosService.js"
+import { Giphy, sandboxGiftsApi } from "./AxiosService.js"
 
 class GiftsService {
   async getGifts() {
@@ -24,6 +24,21 @@ class GiftsService {
   async deleteGift(giftId) {
     const res = await sandboxGiftsApi.delete(giftId)
     AppState.gifts = AppState.gifts.filter(g => g.id != giftId)
+  }
+
+  async searchGiphy(query) {
+    let res = await Giphy.get(`search`, {
+      params: {
+        rating: 'pg',
+        lang: 'en',
+        q: query,
+        limit: 10
+      }
+    })
+    console.log(res.data)
+    AppState.returnedGifts = res.data.data
+    console.log(AppState.returnedGifts)
+
   }
 }
 
