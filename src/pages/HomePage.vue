@@ -4,7 +4,7 @@
       <Sidenav />
       <div class="col-8">
         <section class="row">
-          <div class="col-4" v-for="gift in gifts">
+          <div class="col-4" v-for="gift in gifts" :key="gift.id">
             <GiftCard :giftProp="gift" />
           </div>
         </section>
