@@ -5,7 +5,7 @@
       <label for="tag">Tag</label>
       <input type="text" class="form-control mb-3" v-model="editable.tag">
       <label for="url">URL</label>
-      <input type="url" class="form-control mb-3" v-model="editable.url">
+      <input type="url" id="url" class="form-control mb-3" v-model="editable.url">
       <div class="text-end">
         <button class="btn btn-info" type="submit">Submit</button>
       </div>
@@ -19,8 +19,8 @@
       </div>
     </form>
     <section class="row">
-      <div class="col-6 p-3" v-for="g in returnedGifts">
-        <img :src="g.images.downsized.url" :alt="g.title" class="giphy-list">
+      <div class="col-6 p-3" v-for="g in returnedGifts" :key="g.id">
+        <GiphyDisplay :giphyProp="g" />
       </div>
     </section>
   </div>
@@ -33,6 +33,7 @@ import { AppState } from "../AppState.js";
 import { giftsService } from "../services/GiftsService.js";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
+import GiphyDisplay from "./GiphyDisplay.vue";
 
 export default {
 
@@ -43,6 +44,7 @@ export default {
     return {
       editable,
       returnedGifts: computed(() => AppState.returnedGifts),
+      giftURL: computed(() => AppState.giftURL),
       async addGift() {
         try {
           const form = window.event.target
@@ -70,6 +72,7 @@ export default {
 
     };
   },
+  components: { GiphyDisplay }
 };
 </script>
 
@@ -86,7 +89,7 @@ export default {
 }
 
 .giphy-list {
-  filter: drop-shadow(0px 0px 6px black);
+  filter: drop-shadow(0px 0px 5px black);
   border-radius: 5px
 }
 </style>

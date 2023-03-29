@@ -3,8 +3,10 @@
     <img v-if="giftProp.opened == true" :src="giftProp.url" class="mb-2">
     <img v-else src="../assets/img/closed-gift.jpg" class="selectable closed-img" @click="openGift(giftProp.id)">
     <h6 v-if="giftProp.opened == true" class="text-center mb-3">{{ giftProp.tag }}</h6>
-    <button v-if="giftProp.opened == true" class="btn btn-outline-danger" @click="deleteGift(giftProp.id)"><i
-        class="mdi mdi-delete"></i></button>
+    <div class="text-end">
+      <button v-if="giftProp.opened == true" class="btn btn-outline-danger delete-button"
+        @click="deleteGift(giftProp.id)"><i class="mdi mdi-delete"></i></button>
+    </div>
   </div>
 </template>
 <script>
@@ -63,5 +65,11 @@ img {
   object-position: center;
   height: 25vh;
   width: 100%
+}
+
+.delete-button {
+  width: 4vw;
+  margin-right: .3em;
+  margin-bottom: .3em;
 }
 </style>

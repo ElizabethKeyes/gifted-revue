@@ -10,5 +10,6 @@ export const AppState = reactive({
 
   gifts: [],
 
-  returnedGifts: []
+  returnedGifts: [],
+  giftURL: null
 })
