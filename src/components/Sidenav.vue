@@ -18,13 +18,18 @@
         <button class="btn btn-info inline-button"><i class="mdi mdi-magnify"></i></button>
       </div>
     </form>
-    <!-- TODO add in a template for the giphy gifs -->
+    <section class="row">
+      <div class="col-6 p-3" v-for="g in returnedGifts">
+        <img :src="g.images.downsized.url" :alt="g.title" class="giphy-list">
+      </div>
+    </section>
   </div>
 </template>
 
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { AppState } from "../AppState.js";
 import { giftsService } from "../services/GiftsService.js";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
@@ -35,9 +40,9 @@ export default {
     const editable = ref({})
 
 
-
     return {
       editable,
+      returnedGifts: computed(() => AppState.returnedGifts),
       async addGift() {
         try {
           const form = window.event.target
@@ -78,5 +83,10 @@ export default {
 .inline-button {
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px
+}
+
+.giphy-list {
+  filter: drop-shadow(0px 0px 6px black);
+  border-radius: 5px
 }
 </style>
