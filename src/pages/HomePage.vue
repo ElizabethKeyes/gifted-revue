@@ -18,6 +18,8 @@ import { AppState } from '../AppState.js'
 import { logger } from "../utils/Logger.js";
 import { giftsService } from '../services/GiftsService.js';
 import { onMounted, computed } from "vue";
+import GiftCard from "../components/GiftCard.vue";
+import Sidenav from "../components/Sidenav.vue";
 
 
 export default {
@@ -37,7 +39,8 @@ export default {
     return {
       gifts: computed(() => AppState.gifts)
     }
-  }
+  },
+  components: { GiftCard, Sidenav }
 }
 </script>
 
