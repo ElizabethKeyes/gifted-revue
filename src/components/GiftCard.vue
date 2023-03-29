@@ -1,10 +1,12 @@
 <template>
   <div class="my-card d-flex flex-column justify-content-between">
     <img v-if="giftProp.opened == true" :src="giftProp.url" class="mb-2">
-    <img v-else src="../assets/img/closed-gift.jpg" class="selectable closed-img" @click="openGift(giftProp.id)">
+    <img v-else src="../assets/img/closed-gift.jpg" class="selectable closed-img" @click="toggleGift(giftProp.id)">
     <h6 v-if="giftProp.opened == true" class="text-center mb-3">{{ giftProp.tag }}</h6>
-    <div class="text-end">
-      <button v-if="giftProp.opened == true" class="btn btn-outline-danger delete-button"
+    <div class="d-flex justify-content-between">
+      <button v-if="giftProp.opened == true" title="Close Gift" class="btn btn-outline-success small-button"
+        @click="toggleGift(giftProp.id)"><i class="mdi mdi-gift"></i></button>
+      <button v-if="giftProp.opened == true" title="Delete Gift" class="btn btn-outline-danger small-button"
         @click="deleteGift(giftProp.id)"><i class="mdi mdi-delete"></i></button>
     </div>
   </div>
@@ -22,9 +24,9 @@ export default {
   },
   setup() {
     return {
-      async openGift(giftId) {
+      async toggleGift(giftId) {
         try {
-          await giftsService.openGift(giftId)
+          await giftsService.toggleGift(giftId)
         } catch (error) {
           logger.log(error)
           Pop.error(error)
@@ -67,9 +69,10 @@ img {
   width: 100%
 }
 
-.delete-button {
+.small-button {
   width: 4vw;
   margin-right: .3em;
+  margin-left: .3em;
   margin-bottom: .3em;
 }
 </style>

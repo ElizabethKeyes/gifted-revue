@@ -13,12 +13,14 @@ class GiftsService {
     AppState.gifts = [new Gift(res.data), ...AppState.gifts]
   }
 
-  async openGift(giftId) {
+  async toggleGift(giftId) {
     const foundGift = AppState.gifts.find(g => g.id == giftId)
     const foundIndex = AppState.gifts.findIndex(g => g.id == giftId)
-    foundGift.opened = true
-    const res = await sandboxGiftsApi.put(giftId, foundGift)
-    AppState.gifts.splice(foundIndex, 1, new Gift(res.data))
+    foundGift.opened = !foundGift.opened
+    if (foundGift.opened == true) {
+      const res = await sandboxGiftsApi.put(giftId, foundGift)
+      AppState.gifts.splice(foundIndex, 1, new Gift(res.data))
+    }
   }
 
   async deleteGift(giftId) {
